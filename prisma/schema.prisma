@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Feedback {
+  id        String   @id @default(cuid())
+  kategori  String
+  nama      String
+  nim       String
+  judul     String
+  deskripsi String
+  status    String   @default("menunggu")
+  balasan   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
