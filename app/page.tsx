@@ -416,7 +416,7 @@ export default function FeedbackPage() {
 
       <footer className="border-t border-slate-200 mt-12">
         <div className="max-w-6xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-slate-400">© 2025 SVC — Student Voice Campus backup by <a href="http://etherthink.cujud.xyz/" className="text-emerald-500">Etherthink</a></p>
+          <p className="text-xs text-slate-400">© 2026 SVC — Student Voice Campus backup by <a href="http://etherthink.cujud.xyz/" className="text-emerald-500">Etherthink</a></p>
           <p className="text-xs text-slate-400">Aduan bersifat rahasia dan akan diproses dalam 3–5 hari kerja</p>
         </div>
       </footer>
