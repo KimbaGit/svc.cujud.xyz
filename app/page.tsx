@@ -7,6 +7,7 @@ import {
   Send, Inbox, Filter, X, CalendarDays, MessageSquare, Hash,
   TrendingUp, AlertCircle, RefreshCw, ShieldAlert,
 } from "lucide-react";
+import Image from "next/image";
 
 type StatusType = "menunggu" | "diterima" | "ditolak";
 
@@ -252,8 +253,14 @@ export default function FeedbackPage() {
         <div className="relative max-w-6xl mx-auto px-6 py-8">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ backgroundColor: "#0d9488" }}>
-                <MessageSquare size={20} className="text-white" />
+              <div className="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0">
+                <Image
+                  src="/logo-ith.png"
+                  alt="Logo Kampus"
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div>
                 <p className="text-xs font-medium text-teal-400 uppercase tracking-widest">Portal Resmi</p>

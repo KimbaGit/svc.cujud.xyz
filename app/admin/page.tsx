@@ -7,7 +7,8 @@ import {
   Hash, CalendarDays, RefreshCw, AlertCircle, ChevronLeft,
   Send, Inbox, Users, TrendingUp, ShieldAlert, X, Trash2, LogOut,
 } from "lucide-react";
-import { useRouter } from "next/navigation"; 
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 type StatusType = "menunggu" | "diterima" | "ditolak";
 
@@ -229,9 +230,15 @@ export default function AdminPage() {
             </a>
             <div className="w-px h-4 bg-slate-700" />
             <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#0d9488" }}>
-                <ShieldAlert size={15} className="text-white" />
-              </div>
+            <div className="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0">
+              <Image
+                src="/logo-ith.png"
+                alt="Logo Kampus"
+                width={40}
+                height={40}
+                className="w-full h-full object-contain"
+              />
+            </div>
               <span className="text-white font-semibold text-sm serif">Admin Panel</span>
             </div>
           </div>
