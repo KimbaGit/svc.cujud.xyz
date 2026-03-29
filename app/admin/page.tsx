@@ -5,8 +5,9 @@ import {
   BookOpen, GraduationCap, Wifi, Utensils, Building2, ShieldCheck,
   FlaskConical, Bus, CheckCircle2, Clock3, XCircle, MessageSquare,
   Hash, CalendarDays, RefreshCw, AlertCircle, ChevronLeft,
-  Send, Inbox, Users, TrendingUp, ShieldAlert, X, Trash2,
+  Send, Inbox, Users, TrendingUp, ShieldAlert, X, Trash2, LogOut,
 } from "lucide-react";
+import { useRouter } from "next/navigation"; 
 
 type StatusType = "menunggu" | "diterima" | "ditolak";
 
@@ -211,6 +212,12 @@ export default function AdminPage() {
 
   const filtered = feedbacks.filter((f) => filterStatus === "semua" || f.status === filterStatus);
 
+  const router = useRouter();
+  const handleLogout = async () => {
+    await fetch("/api/auth/logout", { method: "POST" });
+    router.push("/admin/login");
+  };
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#f0f2f5" }}>
       {/* Header */}
@@ -228,10 +235,18 @@ export default function AdminPage() {
               <span className="text-white font-semibold text-sm serif">Admin Panel</span>
             </div>
           </div>
-          <button onClick={fetchFeedbacks} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-slate-400 hover:text-white transition-colors"
-            style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
-            <RefreshCw size={12} />Refresh
-          </button>
+          <div className="flex items-center gap-2">
+            <button onClick={fetchFeedbacks}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-slate-400 hover:text-white transition-colors"
+              style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
+              <RefreshCw size={12} />Refresh
+            </button>
+            <button onClick={handleLogout}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-colors"
+              style={{ border: "1px solid rgba(239,68,68,0.3)", color: "#fca5a5", backgroundColor: "rgba(239,68,68,0.1)" }}>
+              <LogOut size={12} />Logout
+            </button>
+          </div>
         </div>
       </header>
 
