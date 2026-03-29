@@ -161,7 +161,7 @@ function FeedbackForm({ onSubmit }: { onSubmit: (data: Omit<Feedback, "id" | "st
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        {[{ key: "nama", label: "Nama Lengkap", ph: "Nama Anda" }, { key: "nim", label: "NIM", ph: "24XXXXXXXX" }].map(({ key, label, ph }) => (
+        {[{ key: "nama", label: "Nama Lengkap", ph: "Nama Anda" }, { key: "nim", label: "NIM", ph: "Sesuai Angkatan" }].map(({ key, label, ph }) => (
           <div key={key}>
             <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">{label} *</label>
             <input type="text" value={form[key as keyof typeof form]} onChange={(e) => set(key, e.target.value)} placeholder={ph}
