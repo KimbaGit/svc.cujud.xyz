@@ -161,7 +161,7 @@ function FeedbackForm({ onSubmit }: { onSubmit: (data: Omit<Feedback, "id" | "st
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        {[{ key: "nama", label: "Nama Lengkap", ph: "Nama Anda" }, { key: "nim", label: "NIM", ph: "24XXXXXXXX" }].map(({ key, label, ph }) => (
+        {[{ key: "nama", label: "Nama Lengkap", ph: "Nama Anda" }, { key: "nim", label: "NIM", ph: "Sesuai Angkatan" }].map(({ key, label, ph }) => (
           <div key={key}>
             <label className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1.5">{label} *</label>
             <input type="text" value={form[key as keyof typeof form]} onChange={(e) => set(key, e.target.value)} placeholder={ph}
@@ -257,7 +257,7 @@ export default function FeedbackPage() {
               </div>
               <div>
                 <p className="text-xs font-medium text-teal-400 uppercase tracking-widest">Portal Resmi</p>
-                <h1 className="text-white font-bold text-lg leading-none serif">SiAduan Kampus</h1>
+                <h1 className="text-white font-bold text-lg leading-none serif">SVC</h1>
               </div>
             </div>
             <a href="/admin" className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all hover:opacity-80"
@@ -267,7 +267,7 @@ export default function FeedbackPage() {
           </div>
           <div className="max-w-2xl">
             <h2 className="serif text-3xl md:text-4xl font-normal text-white leading-tight mb-3">
-              Sistem Pengaduan <span style={{ color: "#fcd34d" }}>Fasilitas Kampus</span>
+              Student Voice <span style={{ color: "#fcd34d" }}>ITH Campus</span>
             </h2>
             <p className="text-slate-300 text-sm leading-relaxed">
               Sampaikan masukan, keluhan, dan saran terkait fasilitas dan pelayanan kampus. Setiap aduan akan ditindaklanjuti.
@@ -409,7 +409,7 @@ export default function FeedbackPage() {
 
       <footer className="border-t border-slate-200 mt-12">
         <div className="max-w-6xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-slate-400">© 2025 SiAduan Kampus — Sistem Pengaduan Fasilitas</p>
+          <p className="text-xs text-slate-400">© 2026 SVC — Student Voice Campus Backup by <a href="https://etherthink.cujud.xyz/" className="text-emerald-600">Etherthink</a></p>
           <p className="text-xs text-slate-400">Aduan bersifat rahasia dan akan diproses dalam 3–5 hari kerja</p>
         </div>
       </footer>

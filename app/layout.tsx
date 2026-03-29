@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SiAduan — Sistem Aduan Fasilitas Kampus",
+  title: "SVC — Student Voice Campus",
   description: "Portal pengaduan dan feedback fasilitas kampus. Sampaikan masukan Anda untuk pelayanan yang lebih baik.",
 };
 
