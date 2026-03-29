@@ -82,7 +82,7 @@ export default function LoginPage() {
             </div>
             <h1 className="serif text-2xl text-white mb-1">Admin Panel</h1>
             <p className="text-slate-400 text-xs">
-              SiAduan Kampus — Akses Terbatas
+              SVC — Akses Terbatas
             </p>
           </div>
 
@@ -186,7 +186,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <p className="text-center text-xs mt-4" style={{ color: "#1e3a5f" }}>
+        <p className="text-center text-xs mt-4" style={{ color: "#f7f7ff" }}>
           Akses hanya untuk staf & administrator kampus
         </p>
       </div>
