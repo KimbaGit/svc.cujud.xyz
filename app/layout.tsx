@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "SVC — Student Voice Campus",
+  title: "Student Voice Campus - ITH",
   description: "Portal pengaduan dan feedback fasilitas kampus. Sampaikan masukan Anda untuk pelayanan yang lebih baik.",
 };
 

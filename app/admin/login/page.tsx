@@ -186,7 +186,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <p className="text-center text-xs mt-4" style={{ color: "#f7f7ff" }}>
+        <p className="text-center text-xs mt-4" style={{ color: "#f7f7f0" }}>
           Akses hanya untuk staf & administrator kampus
         </p>
       </div>

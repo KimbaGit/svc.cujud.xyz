@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 
+// Fix SSL certificate issue dengan Supabase di Windows
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 const globalForPrisma = globalThis as unknown as {

@@ -8,15 +8,24 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model Feedback {
-  id        String   @id @default(cuid())
-  kategori  String
+model Mahasiswa {
+  id        String     @id @default(cuid())
+  nim       String     @unique
   nama      String
-  nim       String
-  judul     String
-  deskripsi String
-  status    String   @default("menunggu")
-  balasan   String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  password  String
+  createdAt DateTime   @default(now())
+  feedbacks Feedback[]
+}
+
+model Feedback {
+  id          String     @id @default(cuid())
+  kategori    String
+  judul       String
+  deskripsi   String
+  status      String     @default("menunggu")
+  balasan     String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  mahasiswaId String
+  mahasiswa   Mahasiswa  @relation(fields: [mahasiswaId], references: [id])
 }

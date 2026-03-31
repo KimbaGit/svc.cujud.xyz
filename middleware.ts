@@ -5,14 +5,12 @@ import { verifyToken } from "@/lib/auth";
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Biarkan /admin/login lewat
+  // ── Admin routes ──────────────────────────────────────
   if (pathname === "/admin/login") return NextResponse.next();
 
-  // Semua /admin/* lainnya harus punya token valid
   if (pathname.startsWith("/admin")) {
     const token = req.cookies.get("admin_token")?.value;
     if (!token) return NextResponse.redirect(new URL("/admin/login", req.url));
-
     const payload = await verifyToken(token);
     if (!payload) {
       const res = NextResponse.redirect(new URL("/admin/login", req.url));
@@ -21,9 +19,23 @@ export async function middleware(req: NextRequest) {
     }
   }
 
+  // ── Mahasiswa routes ──────────────────────────────────
+  if (pathname === "/login") return NextResponse.next();
+
+  if (pathname.startsWith("/feedback")) {
+    const token = req.cookies.get("mahasiswa_token")?.value;
+    if (!token) return NextResponse.redirect(new URL("/login", req.url));
+    const payload = await verifyToken(token);
+    if (!payload) {
+      const res = NextResponse.redirect(new URL("/login", req.url));
+      res.cookies.delete("mahasiswa_token");
+      return res;
+    }
+  }
+
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/feedback/:path*", "/login"],
 };
