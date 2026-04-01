@@ -7,7 +7,7 @@ import {
   XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
 } from "recharts";
 import {
-  ShieldAlert, ChevronLeft, LogOut, RefreshCw, LayoutDashboard,
+  ShieldAlert, ChevronLeft, LogOut, RefreshCw, LayoutDashboard, Menu, X as XIcon,
   TrendingUp, Users, Clock3, CheckCircle2, XCircle, AlertCircle,
   ArrowRight, Activity,
 } from "lucide-react";
@@ -85,6 +85,7 @@ function StatCard({ label, value, sub, color, bg, border, icon: Icon, suffix = "
 export default function DashboardPage() {
   const router = useRouter();
   const [data, setData] = useState<DashboardData | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -121,21 +122,25 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#f0f2f5" }}>
       {/* Header */}
-      <header style={{ backgroundColor: "#0f1b2d" }} className="px-6 py-4">
+      <header style={{ backgroundColor: "#0f1b2d" }} className="px-6 py-4 relative">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <a href="/admin" className="flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors text-xs">
-              <ChevronLeft size={14} />Admin Panel
-            </a>
-            <div className="w-px h-4 bg-slate-700" />
+          <div className="flex items-center gap-3">
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#0d9488" }}>
                 <LayoutDashboard size={14} className="text-white" />
               </div>
               <span className="text-white font-semibold text-sm serif">Dashboard Statistik</span>
             </div>
+            <div className="hidden md:flex items-center gap-3">
+              <div className="w-px h-4 bg-slate-700" />
+              <a href="/admin" className="flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors text-xs">
+                <ChevronLeft size={13} />Admin Panel
+              </a>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
+
+          {/* Desktop actions */}
+          <div className="hidden md:flex items-center gap-2">
             <button onClick={fetchData}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-slate-400 hover:text-white transition-colors"
               style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
@@ -147,7 +152,39 @@ export default function DashboardPage() {
               <LogOut size={12} />Logout
             </button>
           </div>
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-lg transition-colors"
+            style={{ backgroundColor: mobileMenuOpen ? "rgba(255,255,255,0.1)" : "transparent", color: "#94a3b8" }}>
+            {mobileMenuOpen ? <XIcon size={20} /> : <Menu size={20} />}
+          </button>
         </div>
+
+        {/* Mobile dropdown */}
+        {mobileMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 right-0 z-50 animate-fade-up"
+            style={{ backgroundColor: "#0f1b2d", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+            <div className="max-w-7xl mx-auto px-6 py-3 space-y-1">
+              <a href="/admin" className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+                <ChevronLeft size={15} />Kembali ke Admin Panel
+              </a>
+              <div className="h-px my-1" style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
+              <button onClick={fetchData}
+                className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all text-left">
+                <RefreshCw size={15} className={loading ? "animate-spin" : ""} />Refresh Data
+              </button>
+              <button onClick={handleLogout}
+                className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm transition-all text-left"
+                style={{ color: "#fca5a5" }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(239,68,68,0.1)")}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}>
+                <LogOut size={15} />Logout
+              </button>
+            </div>
+          </div>
+        )}
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-6">

@@ -6,9 +6,8 @@ import {
   BookOpen, GraduationCap, Wifi, Utensils, Building2, ShieldCheck,
   FlaskConical, Bus, CheckCircle2, Clock3, XCircle, MessageSquare,
   Hash, CalendarDays, RefreshCw, AlertCircle, ChevronLeft,
-  Send, Inbox, Users, TrendingUp, ShieldAlert, X, Trash2, LogOut,
-  UserPlus, Eye, EyeOff, KeyRound,
-  LayoutDashboard,
+  Send, Inbox, Users, TrendingUp, ShieldAlert, X, Trash2, LogOut, LayoutDashboard,
+  UserPlus, Eye, EyeOff, KeyRound, Menu,
 } from "lucide-react";
 
 type StatusType = "menunggu" | "diterima" | "ditolak";
@@ -402,6 +401,7 @@ export default function AdminPage() {
   const [filterStatus, setFilterStatus] = useState("semua");
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<TabType>("aduan");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = async () => {
     await fetch("/api/auth/logout", { method: "POST" });
@@ -449,25 +449,31 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#f0f2f5" }}>
       {/* Header */}
-      <header style={{ backgroundColor: "#0f1b2d" }} className="px-6 py-4">
+      <header style={{ backgroundColor: "#0f1b2d" }} className="px-6 py-4 relative">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <a href="/" className="flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors text-xs">
-              <ChevronLeft size={14} />Beranda
-            </a>
-            <div className="w-px h-4 bg-slate-700" />
+          {/* Logo + Nav */}
+          <div className="flex items-center gap-3">
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: "#0d9488" }}>
                 <ShieldAlert size={15} className="text-white" />
               </div>
               <span className="text-white font-semibold text-sm serif">Admin Panel</span>
             </div>
-            <div className="w-px h-4 bg-slate-700" />
+            {/* Desktop nav */}
+            <div className="hidden md:flex items-center gap-3">
+              <div className="w-px h-4 bg-slate-700" />
+              <a href="/" className="flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors text-xs">
+                <ChevronLeft size={13} />Beranda
+              </a>
+              <div className="w-px h-4 bg-slate-700" />
               <a href="/admin/dashboard" className="flex items-center gap-1.5 text-slate-400 hover:text-teal-400 transition-colors text-xs">
                 <LayoutDashboard size={13} />Dashboard
               </a>
             </div>
-          <div className="flex items-center gap-2">
+          </div>
+
+          {/* Desktop actions */}
+          <div className="hidden md:flex items-center gap-2">
             <button onClick={fetchFeedbacks}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-slate-400 hover:text-white transition-colors"
               style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
@@ -479,7 +485,42 @@ export default function AdminPage() {
               <LogOut size={12} />Logout
             </button>
           </div>
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="md:hidden p-2 rounded-lg transition-colors"
+            style={{ backgroundColor: mobileMenuOpen ? "rgba(255,255,255,0.1)" : "transparent", color: "#94a3b8" }}>
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
+
+        {/* Mobile dropdown menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden absolute top-full left-0 right-0 z-50 animate-fade-up"
+            style={{ backgroundColor: "#0f1b2d", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+            <div className="max-w-7xl mx-auto px-6 py-3 space-y-1">
+              <a href="/" className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+                <ChevronLeft size={15} />Kembali ke Beranda
+              </a>
+              <a href="/admin/dashboard" className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-slate-400 hover:text-teal-400 hover:bg-white/5 transition-all">
+                <LayoutDashboard size={15} />Dashboard Statistik
+              </a>
+              <div className="h-px my-1" style={{ backgroundColor: "rgba(255,255,255,0.06)" }} />
+              <button onClick={fetchFeedbacks}
+                className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm text-slate-400 hover:text-white hover:bg-white/5 transition-all text-left">
+                <RefreshCw size={15} />Refresh Data
+              </button>
+              <button onClick={handleLogout}
+                className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm transition-all text-left"
+                style={{ color: "#fca5a5" }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "rgba(239,68,68,0.1)")}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}>
+                <LogOut size={15} />Logout
+              </button>
+            </div>
+          </div>
+        )}
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-6">
@@ -639,7 +680,6 @@ export default function AdminPage() {
             </div>
           </div>
         </div>
-
       )}
     </div>
   );
