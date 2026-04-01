@@ -8,6 +8,7 @@ import {
   Hash, CalendarDays, RefreshCw, AlertCircle, ChevronLeft,
   Send, Inbox, Users, TrendingUp, ShieldAlert, X, Trash2, LogOut,
   UserPlus, Eye, EyeOff, KeyRound,
+  LayoutDashboard,
 } from "lucide-react";
 
 type StatusType = "menunggu" | "diterima" | "ditolak";
@@ -461,7 +462,11 @@ export default function AdminPage() {
               </div>
               <span className="text-white font-semibold text-sm serif">Admin Panel</span>
             </div>
-          </div>
+            <div className="w-px h-4 bg-slate-700" />
+              <a href="/admin/dashboard" className="flex items-center gap-1.5 text-slate-400 hover:text-teal-400 transition-colors text-xs">
+                <LayoutDashboard size={13} />Dashboard
+              </a>
+            </div>
           <div className="flex items-center gap-2">
             <button onClick={fetchFeedbacks}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium text-slate-400 hover:text-white transition-colors"
