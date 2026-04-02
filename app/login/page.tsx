@@ -72,7 +72,7 @@ export default function LoginMahasiswaPage() {
               {error && (
                 <div className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-xs animate-fade-up"
                   style={{ backgroundColor: "rgba(239,68,68,0.15)", border: "1px solid rgba(239,68,68,0.3)", color: "#fca5a5" }}>
-                  <AlertCircle size={13} className="flex-shrink-0" />{error}
+                  <AlertCircle size={13} className="shrink-0" />{error}
                 </div>
               )}
 

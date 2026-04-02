@@ -62,7 +62,7 @@ function FeedbackCard({ fb, delay }: { fb: Feedback; delay: number }) {
       <div className="p-5">
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex items-center gap-2.5 min-w-0">
-            <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+            <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
               style={{ backgroundColor: kat.color + "18", color: kat.color }}><KatIcon size={18} /></div>
             <div className="min-w-0">
               <p className="text-[11px] font-medium text-slate-400 uppercase tracking-wider">{kat.label}</p>
@@ -261,7 +261,7 @@ export default function FeedbackPage() {
         <div className="relative max-w-6xl mx-auto px-6 py-5">
           <div className="flex items-center justify-between mb-5">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center" style={{ backgroundColor: "transparent" }}>
+              <div className="w-9 h-9 rounded-xl overflow-hidden shrink-0 flex items-center justify-center" style={{ backgroundColor: "transparent" }}>
                 <Image src="/logo.png" alt="Logo" width={36} height={36} className="w-full h-full object-contain"
                   onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
               </div>
@@ -406,7 +406,7 @@ export default function FeedbackPage() {
 
             {error && (
               <div className="rounded-2xl border border-red-100 bg-red-50 p-4 mb-4 flex items-start gap-3">
-                <AlertCircle size={16} className="text-red-500 flex-shrink-0 mt-0.5" />
+                <AlertCircle size={16} className="text-red-500 shrink-0 mt-0.5" />
                 <p className="text-sm text-red-700">{error}</p>
               </div>
             )}
