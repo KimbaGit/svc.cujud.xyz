@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import {
   BookOpen, GraduationCap, Wifi, Utensils, Building2, ShieldCheck,
   FlaskConical, Bus, CheckCircle2, Clock3, XCircle, MessageSquare,
   Hash, CalendarDays, RefreshCw, AlertCircle, ChevronLeft,
   Send, Inbox, Users, TrendingUp, ShieldAlert, X, Trash2, LogOut, LayoutDashboard,
-  UserPlus, Eye, EyeOff, KeyRound, Menu,
+  UserPlus, Eye, EyeOff, KeyRound, Menu, Search,
 } from "lucide-react";
 
 type StatusType = "menunggu" | "diterima" | "ditolak";
@@ -402,6 +402,7 @@ export default function AdminPage() {
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<TabType>("aduan");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [search, setSearch] = useState("");
 
   const handleLogout = async () => {
     await fetch("/api/auth/logout", { method: "POST" });
@@ -444,7 +445,18 @@ export default function AdminPage() {
     diterima: feedbacks.filter((f) => f.status === "diterima").length,
     ditolak:  feedbacks.filter((f) => f.status === "ditolak").length,
   };
-  const filtered = feedbacks.filter((f) => filterStatus === "semua" || f.status === filterStatus);
+  const filtered = useMemo(() => {
+    const q = search.toLowerCase().trim();
+    return feedbacks.filter((f) => {
+      const statusOk = filterStatus === "semua" || f.status === filterStatus;
+      const searchOk = !q ||
+        f.judul.toLowerCase().includes(q) ||
+        f.mahasiswa.nama.toLowerCase().includes(q) ||
+        f.mahasiswa.nim.toLowerCase().includes(q) ||
+        f.deskripsi.toLowerCase().includes(q);
+      return statusOk && searchOk;
+    });
+  }, [feedbacks, filterStatus, search]);
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#f0f2f5" }}>
@@ -566,6 +578,26 @@ export default function AdminPage() {
         {/* Tab: Aduan */}
         {activeTab === "aduan" && (
           <>
+            {/* Search bar */}
+            <div className="relative mb-4">
+              <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Cari by judul, nama mahasiswa, atau NIM..."
+                className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-slate-200 bg-white text-sm outline-none transition-all"
+                onFocus={(e) => (e.target.style.borderColor = "#0d9488")}
+                onBlur={(e) => (e.target.style.borderColor = "#e2e8f0")}
+              />
+              {search && (
+                <button onClick={() => setSearch("")}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
+                  <X size={14} />
+                </button>
+              )}
+            </div>
+
             <div className="flex items-center gap-2 mb-4">
               {(["semua", "menunggu", "diterima", "ditolak"] as const).map((s) => (
                 <button key={s} onClick={() => setFilterStatus(s)}

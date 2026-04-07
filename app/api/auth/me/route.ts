@@ -11,7 +11,8 @@ export async function GET() {
     const payload = await verifyToken(token);
     if (!payload) return NextResponse.json(null, { status: 401 });
 
-    return NextResponse.json({ nama: payload.nama, nim: payload.nim });
+    // Sertakan id agar client bisa tahu aduan mana miliknya
+    return NextResponse.json({ id: payload.id, nama: payload.nama, nim: payload.nim });
   } catch {
     return NextResponse.json(null, { status: 500 });
   }
